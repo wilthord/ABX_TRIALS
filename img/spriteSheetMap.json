@@ -1,0 +1,28 @@
+{"sheets":[
+		{"imgURL":"img/SpriteSheet.png", "sheetName":"Todo",
+			"sprites":[
+				{"name":"ABX","x":0,"y":0,"w":32,"h":32 },
+				{"name":"Piso","x":32,"y":0,"w":32,"h":32 },				
+				{"name":"vortice","x":64,"y":0,"w":32,"h":32 },
+				{"name":"sierra","x":128,"y":0,"w":32,"h":32 },
+				{"name":"bala","x":192,"y":0,"w":32,"h":32 },
+				{"name":"target","x":224,"y":0,"w":32,"h":32 }
+			]
+		},
+		{"imgURL":"img/GUISheet.png", "sheetName":"GUI",
+			"sprites":[
+				{"name":"NombreJuego","x":0,"y":0,"w":255,"h":160 },
+				{"name":"Nivel","x":255,"y":39,"w":124,"h":30 },
+				{"name":"FlechaArriba","x":391,"y":40,"w":55,"h":30 },
+				{"name":"CajaNivel","x":509,"y":41,"w":60,"h":44 },
+				{"name":"FlechaAbajo","x":459,"y":41,"w":39,"h":30 },
+				{"name":"Iniciar","x":255,"y":39,"w":124,"h":31 },
+				{"name":"GameOver","x":256,"y":82,"w":80,"h":44 },
+				{"name":"Retry","x":355,"y":114,"w":71,"h":26 },
+				{"name":"Next","x":262,"y":145,"w":140,"h":26 },
+				{"name":"Great","x":450,"y":122,"w":73,"h":19 },
+				{"name":"Numeros","x":255,"y":0,"w":16,"h":32 }
+			]
+		}
+	]
+}
