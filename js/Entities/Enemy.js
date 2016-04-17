@@ -14,7 +14,7 @@ EnemyClass = function(enemyJson){
     this.inicioConversion = 0;
 
     //Velocidad de absorcion del vortice
-    this.velocidadAbsorcion=80;
+    this.velocidadAbsorcion=40;
 
     this.tipo = "Sierra";
 
@@ -78,14 +78,14 @@ EnemyClass.prototype.update = function(){
     if (this.tiempoConversion<this.tiempoTotalTransformacion){
         var objDate = new Date();
         this.tiempoConversion = (objDate.getTime()-this.inicioConversion);
-        console.log("tiempoConversion: "+this.tiempoConversion);
+        //console.log("tiempoConversion: "+this.tiempoConversion);
     }else{
         this.tipoActual=this.tipo;
     }
 
     if(this.tipoActual == "Sierra"){
         this.currSpriteName = 'sierra';
-        this.radioVision = 60;
+        this.radioVision = 100;
     }else{
         this.currSpriteName = 'vortice';
         this.radioVision = 80;
@@ -113,13 +113,21 @@ EnemyClass.prototype.update = function(){
 
             this.physBody.SetLinearVelocity(new b2Vec2(0, 0));
 
-            objShape = new CircleShape();
-            objShape.SetLocalPosition(new b2Vec2(this.pos.x, this.pos.y));
-            objShape.SetRadius(this.radioVision);
+            var enemyBody = this;
 
-            var transform = null;
-
-            gPhysicsEngine.world.QueryShape(this.entidadEncontrada, objShape, transform);
+            GE.entities.forEach(function(entidad) {
+                if(entidad.tipoActual && entidad.tipoActual=='Vortice' ){
+                }else{
+                    if( Math.pow(enemyBody.radioVision, 2) > (Math.pow(enemyBody.pos.x - entidad.pos.x, 2) + Math.pow(enemyBody.pos.y - entidad.pos.y, 2) ) && entidad.physBody ){
+                        entidad.puedeMoverse=false;
+                        var dir = new b2Vec2(enemyBody.pos.x, enemyBody.pos.y);
+                        dir.Subtract(entidad.pos);
+                        dir.Normalize();
+                        entidad.physBody.SetLinearVelocity(new b2Vec2(dir.x * enemyBody.velocidadAbsorcion, dir.y * enemyBody.velocidadAbsorcion));
+                    }
+                    
+                }
+            });
 
         }
 
@@ -184,6 +192,9 @@ EnemyClass.prototype.entidadEncontrada = function(fixture){
                 //var dirObj =new b2Vec2(tmpObj.physBody.GetPosition().x, tmpObj.physBody.GetPosition().y);
                 var limiteInf = fixture.GetAABB().lowerBound;
                 var limiteSup = fixture.GetAABB().upperBound;
+
+                tmpObj.limiteInf = limiteInf;
+                tmpObj.limiteSup = limiteSup;
 
                 /*dirObj.Subtract(new b2Vec2( limiteInf.x+(limiteSup.x-limiteInf.x),  limiteInf.y+(limiteSup.y-limiteInf.y)));
                 dirObj.Normalize();
