@@ -22,6 +22,8 @@ PlayerClass = function(playerJson){		//Heredamos de la clase entidad
 	this.w=2;
 	this.h=2;
 
+	this.puedeMoverse = true;
+
 	// Create our physics body;
     var entityDef = {
         id: "Player",
@@ -49,6 +51,8 @@ PlayerClass.prototype.constructor = PlayerClass;
 
 PlayerClass.prototype.update = function(){
 
+	this.puedeMoverse=true;
+
 	if(this.energy<1){
 		this.isDead=true;
 		return;
@@ -62,30 +66,31 @@ PlayerClass.prototype.update = function(){
 	var dirX=0;
 	var dirY=0;
 
-	//Validamos si hay acciones pendientes por ejecutar
-	if(gInputEngine.actions[MOV_IZQUIERDA]){
-		dirX = - this.movimiento;
-		this.isMoviendo=true;
-	}
-	if(gInputEngine.actions[MOV_DERECHA]){
-		dirX = this.movimiento;
-		this.isMoviendo=true;
-	}
-	if(gInputEngine.actions[MOV_ARRIBA]){
-		dirY = - this.movimiento;
-		this.isMoviendo=true;
-	}
-	if(gInputEngine.actions[MOV_ABAJO]){
-		dirY = this.movimiento;
-		this.isMoviendo=true;
-	}
+	if(this.puedeMoverse==true){
+		//Validamos si hay acciones pendientes por ejecutar
+		if(gInputEngine.actions[MOV_IZQUIERDA]){
+			dirX = - this.movimiento;
+			this.isMoviendo=true;
+		}
+		if(gInputEngine.actions[MOV_DERECHA]){
+			dirX = this.movimiento;
+			this.isMoviendo=true;
+		}
+		if(gInputEngine.actions[MOV_ARRIBA]){
+			dirY = - this.movimiento;
+			this.isMoviendo=true;
+		}
+		if(gInputEngine.actions[MOV_ABAJO]){
+			dirY = this.movimiento;
+			this.isMoviendo=true;
+		}
 
-	if(this.isMoviendo==false){
-		this.physBody.SetLinearVelocity(new b2Vec2(0, 0));
-	}else{
-		this.physBody.SetLinearVelocity(new b2Vec2(dirX, dirY));
+		if(this.isMoviendo==false){
+			this.physBody.SetLinearVelocity(new b2Vec2(0, 0));
+		}else{
+			this.physBody.SetLinearVelocity(new b2Vec2(dirX, dirY));
+		}
 	}
-
 	//this.physBody.SetPosition(this.pos);
 	this.pos=this.physBody.GetPosition();
 

@@ -25,7 +25,6 @@
 			"entidades":[
 				{"type":"PlayerClass","xIni":300,"yIni":300 },
 				{"type":"EnemyClass","xIni":20,"yIni":300, "tipoEnemigo":"Sierra" },
-				{"type":"EnemyClass","xIni":300,"yIni":200, "tipoEnemigo":"Vortice" }
 			]
 		},
 		{"id":2, "nombre":"Hide",

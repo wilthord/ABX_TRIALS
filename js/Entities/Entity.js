@@ -21,6 +21,9 @@ EntityClass = function(){
     this.maxFrame=1;
     this.estatica=true;         //Por defecto las entidades son estaticas, no tienen animación.
     this.frameUpdateRatio=5     //Valor que indica cada cuantos frames se actualiza de frame. ej cada 5/60 se actualiza el frame de la entidad.
+
+    this.limiteInf=null;
+    this.limiteSup=null;
 }
 
 // Metodos que deben ser sobrecargados por todas las clases hijas
@@ -29,5 +32,9 @@ EntityClass.prototype.update = function() { }
 
 //Pinta la entidad en la escena. es invocado por el GameEngine
 EntityClass.prototype.draw = function() { 
-        pintarSpriteCustom(this.currSpriteName, this.pos.x, this.pos.y, this.w, this.h, this.angulo);
+    pintarSpriteCustom(this.currSpriteName, this.pos.x, this.pos.y, this.w, this.h, this.angulo);
+    if(this.limiteInf!=null){
+        GE.ctx.rect(this.limiteInf.x, this.limiteInf.y, this.limiteSup.y, this.limiteSup.y);
+        GE.ctx.stroke();
+    }
 }
